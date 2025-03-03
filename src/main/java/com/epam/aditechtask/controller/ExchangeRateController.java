@@ -4,6 +4,7 @@ import com.epam.aditechtask.service.ExchangeRateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class ExchangeRateController {
 	}
 
 	@GetMapping("/{currency}")
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@Operation(summary = "Get exchange rate", description = "Retrieves latest exchange rate for provided currency")
 	public BigDecimal getExchangeRate(@PathVariable String currency) {
 		return exchangeRateService.getExchangeRate(currency);

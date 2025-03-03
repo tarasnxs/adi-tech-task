@@ -25,3 +25,7 @@ fixer:
   api:
     url: https://data.fixer.io/api/latest
     key:
+
+jwt:
+  secret: 3HZI0TzlYmKN9TTANJl6/Q6tFzbSujZE68nj8bcmv/c=
+  expiration: 3600000

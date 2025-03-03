@@ -12,9 +12,26 @@ CREATE TABLE product
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255)   NOT NULL,
-    price_eur       DECIMAL(10, 2) NOT NULL CHECK (price_eur >= 0),
+    price_eur   DECIMAL(10, 2) NOT NULL CHECK (price_eur >= 0),
     category_id BIGINT         NOT NULL,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES category (id)
+);
+
+CREATE TABLE app_user
+(
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(255) NOT NULL UNIQUE,
+    password   VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE app_user_roles
+(
+    user_id BIGINT      NOT NULL,
+    roles    VARCHAR(50) NOT NULL,
+    PRIMARY KEY (user_id, roles),
+    FOREIGN KEY (user_id) REFERENCES app_user (id) ON DELETE CASCADE
 );
