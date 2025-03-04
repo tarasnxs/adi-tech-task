@@ -26,6 +26,12 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO("Not Found", ex.getMessage()));
 	}
 
+	@ExceptionHandler(IllegalStateException.class)
+	public ResponseEntity<ErrorDTO> handleIllegalStateException(IllegalStateException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT)
+			.body(new ErrorDTO("Conflict", ex.getMessage()));
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseEntity<List<ErrorDTO>> handleValidationExceptions(MethodArgumentNotValidException ex) {
